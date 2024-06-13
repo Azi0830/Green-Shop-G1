@@ -1,5 +1,5 @@
 import { Carousel } from "antd";
-import SliderOne from "./sliderOne";
+import SliderOne from "./slide";
 
 const Slider = () => {
   return (

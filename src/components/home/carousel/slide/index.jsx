@@ -19,15 +19,8 @@ const SliderOne = () => {
         </button>
       </div>
       <div className="w-[40%] h-full relative flex items-center justify-center">
-        <img
-          src="https://firebasestorage.googleapis.com/v0/b/aema-image-upload.appspot.com/o/greenshop%2Fimages%2Fflower1.png?alt=media&token=0b53d608-7264-4c54-b497-a9bf054fcd9d"
-          alt="flowers img "
-        />
-        <img
-          className="absolute left-4 bottom-0"
-          src="https://firebasestorage.googleapis.com/v0/b/aema-image-upload.appspot.com/o/greenshop%2Fimages%2Fflower2.png?alt=media&token=905a94e2-1250-4e56-9dcb-d16bbb1a31ca"
-          alt="flowers img "
-        />
+        <img src="" alt="flowers img " />
+        <img className="absolute left-4 bottom-0" src="" alt="flowers img " />
       </div>
     </div>
   );
