@@ -6,7 +6,7 @@ import Discaunt from "./discaunt";
 
 const SideNav = () => {
   return (
-    <div className="w-[20%] bg-[#f5f5f5] mt-[46px] ml-[80px]">
+    <div className="w-[310px] bg-[#f5f5f5]">
       <Categories />
       <PricRange />
       <Size />

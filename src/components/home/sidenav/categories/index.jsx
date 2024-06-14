@@ -1,40 +1,55 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Skeleton } from "antd";
+import { useSearchParams } from "../../../../hooks/useSearchParams";
+
 const Categories = () => {
+  const { getParams, setParams } = useSearchParams();
+  const [loading, setLoading] = useState(false);
+  const [getcategory, setCategory] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      setLoading(true);
+      const { data } = await axios({
+        url: "http://localhost:8080/api/flower/category?access_token=64bebc1e2c6d3f056a8c85b7",
+        method: "GET",
+      });
+      setLoading(false);
+
+      setCategory(data.data);
+    })();
+  }, []);
+
+  const selectedCategory = getParams("category") ?? "house-plants";
+
+  const normal_text = "flex justify-between hover:text-[#46A358]";
+  const active_text = "flex justify-between text-[#46A358] font-bold";
+
   return (
     <div className="py-[14px] px-[18px] ">
       <h2 className="font-bold">Categories</h2>
-      <div className="flex flex-col gap-3 my-[7px] px-[12px]">
-        <div className="flex justify-between hover:text-[#46A358] hover:font-bold">
-          <h3>House planets</h3>
-          <h3>(22)</h3>
-        </div>
-        <div className="flex justify-between hover:text-[#46A358] hover:font-bold">
-          <h3>House planets</h3>
-          <h3>(22)</h3>
-        </div>
-        <div className="flex justify-between hover:text-[#46A358] hover:font-bold">
-          <h3>House planets</h3>
-          <h3>(22)</h3>
-        </div>{" "}
-        <div className="flex justify-between hover:text-[#46A358] hover:font-bold">
-          <h3>House planets</h3>
-          <h3>(22)</h3>
-        </div>
-        <div className="flex justify-between hover:text-[#46A358] hover:font-bold">
-          <h3>House planets</h3>
-          <h3>(22)</h3>
-        </div>
-        <div className="flex justify-between hover:text-[#46A358] hover:font-bold">
-          <h3>House planets</h3>
-          <h3>(22)</h3>
-        </div>{" "}
-        <div className="flex justify-between hover:text-[#46A358] hover:font-bold">
-          <h3>House planets</h3>
-          <h3>(22)</h3>
-        </div>
-        <div className="flex justify-between hover:text-[#46A358] hover:font-bold">
-          <h3>House planets</h3>
-          <h3>(22)</h3>
-        </div>
+      <div className="flex flex-col gap-3 my-[7px] pl-[12px]">
+        {loading
+          ? Array.from({ length: 9 }).map((_, idx) => (
+              <Skeleton.Input block key={idx} />
+            ))
+          : getcategory.map((category) => {
+              return (
+                <div
+                  key={category._id}
+                  className={
+                    selectedCategory === category.route_path
+                      ? active_text
+                      : normal_text
+                  }
+                  onClick={() => setParams({ category: category.route_path })}
+                >
+                  <h3>{category.title}</h3>
+                  <h3>({category.count})</h3>
+                </div>
+              );
+            })}
       </div>
     </div>
   );
