@@ -1,25 +1,22 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
 import { Skeleton } from "antd";
 import { useSearchParams } from "../../../../hooks/useSearchParams";
+import { useQuery } from "@tanstack/react-query";
 
 const Categories = () => {
   const { getParams, setParams } = useSearchParams();
-  const [loading, setLoading] = useState(false);
-  const [getcategory, setCategory] = useState([]);
 
-  useEffect(() => {
-    (async () => {
-      setLoading(true);
+  const { data, isLoading } = useQuery({
+    queryKey: "categories",
+    queryFn: async () => {
       const { data } = await axios({
         url: "http://localhost:8080/api/flower/category?access_token=64bebc1e2c6d3f056a8c85b7",
         method: "GET",
       });
-      setLoading(false);
 
-      setCategory(data.data);
-    })();
-  }, []);
+      return data.data;
+    },
+  });
 
   const selectedCategory = getParams("category") ?? "house-plants";
 
@@ -30,11 +27,11 @@ const Categories = () => {
     <div className="py-[14px] px-[18px] ">
       <h2 className="font-bold">Categories</h2>
       <div className="flex flex-col gap-3 my-[7px] pl-[12px]">
-        {loading
+        {isLoading
           ? Array.from({ length: 9 }).map((_, idx) => (
               <Skeleton.Input block key={idx} />
             ))
-          : getcategory.map((category) => {
+          : data.map((category) => {
               return (
                 <div
                   key={category._id}
