@@ -1,18 +1,16 @@
-import axios from "axios";
 import { Skeleton } from "antd";
-import { useSearchParams } from "../../../../hooks/useSearchParams";
+import { useSearchParams } from "../../../../../hooks/useSearchParams";
 import { useQuery } from "@tanstack/react-query";
+import { useAxios } from "../../../../../hooks/useAxios";
 
 const Categories = () => {
+  const axios = useAxios();
   const { getParams, setParams } = useSearchParams();
 
   const { data, isLoading } = useQuery({
     queryKey: "categories",
     queryFn: async () => {
-      const { data } = await axios({
-        url: "http://localhost:8080/api/flower/category?access_token=64bebc1e2c6d3f056a8c85b7",
-        method: "GET",
-      });
+      const { data } = await axios({ url: "/flower/category" });
 
       return data.data;
     },

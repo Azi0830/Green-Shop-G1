@@ -1,6 +1,6 @@
 import { Slider } from "antd";
 import { useState } from "react";
-import { useSearchParams } from "../../../../hooks/useSearchParams";
+import { useSearchParams } from "../../../../../hooks/useSearchParams";
 
 const PricRange = () => {
   const { getParams, setParams } = useSearchParams();
