@@ -23,6 +23,14 @@ const Header = () => {
       value: "most-expensive",
       label: "Most Expensive",
     },
+    {
+      value: "the-cheapest",
+      label: "The Cheapest",
+    },
+    {
+      value: "most-expensive",
+      label: "Most Expensive",
+    },
   ];
   return (
     <div className="flex justify-between items-center h-[23px]">
