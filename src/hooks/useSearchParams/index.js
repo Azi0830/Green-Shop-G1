@@ -26,3 +26,4 @@ export const useSearchParams = () => {
 
   return { getAllParams, setParams, getParams };
 };
+// huklarni yaratish 12 bet 49
