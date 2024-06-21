@@ -33,6 +33,13 @@ const Size = () => {
           <h3>Large</h3>
           <h3>(22)</h3>
         </div>{" "}
+        <div
+          onClick={() => setParams({ size: "large" })}
+          className={selectedSize === "large" ? active_text : normal_text}
+        >
+          <h3>Large</h3>
+          <h3>(22)</h3>
+        </div>{" "}
       </div>
     </div>
   );
