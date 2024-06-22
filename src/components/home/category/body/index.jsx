@@ -8,12 +8,20 @@ const Body = () => {
   const { getParams } = useSearchParams();
 
   const category = getParams("category") ?? "house-plants";
+  const min = getParams("min") ?? 0;
+  const max = getParams("mix") ?? 1500;
+
+  const cache_key = `category=${category}&min=${min}&max=${max}`;
 
   const { data } = useQuery({
-    queryKey: [category],
+    queryKey: [cache_key],
     queryFn: async () => {
       const { data } = await axios({
         url: `/flower/category/${category}`,
+        params: {
+          range_min: min,
+          range_max: max,
+        },
       });
       return data.data;
     },
