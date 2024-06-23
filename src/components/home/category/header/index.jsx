@@ -7,8 +7,8 @@ const Header = () => {
 
   const activeHeader = "font-bold text-[#46A358] border-b-2 border-[#46A358]";
 
-  const type = getParams("type");
-  const sort = getParams("sort");
+  const type = getParams("type") ?? "all-plants";
+  const sort = getParams("sort") ?? "default-sorting";
 
   const options = [
     {
@@ -51,9 +51,9 @@ const Header = () => {
       <div className="flex gap-2 items-center">
         <h3>Sort by:</h3>
         <Select
-          labelInValue
+          // labelInValue
           defaultValue={options?.filter((item) => item.value === sort)}
-          onChange={(value) => setParams({ sort: value.value })}
+          onChange={(value) => setParams({ sort: value })}
           style={{
             width: 150,
           }}
@@ -65,3 +65,6 @@ const Header = () => {
 };
 
 export default Header;
+/*
+selected da sortni [0] indexni bermasa tug'ri ishlayabdi qaysi yaxshiroq?
+*/

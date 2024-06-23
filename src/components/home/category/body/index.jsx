@@ -9,9 +9,11 @@ const Body = () => {
 
   const category = getParams("category") ?? "house-plants";
   const min = getParams("min") ?? 0;
-  const max = getParams("mix") ?? 1500;
+  const max = getParams("max") ?? 1500;
+  const sort = getParams("sort") ?? "default-sorting";
+  const type = getParams("type") ?? "all-plants";
 
-  const cache_key = `category=${category}&min=${min}&max=${max}`;
+  const cache_key = `category=${category}&min=${min}&max=${max}&sort=${sort}&type=${type}`;
 
   const { data } = useQuery({
     queryKey: [cache_key],
@@ -21,6 +23,8 @@ const Body = () => {
         params: {
           range_min: min,
           range_max: max,
+          sort,
+          type,
         },
       });
       return data.data;
