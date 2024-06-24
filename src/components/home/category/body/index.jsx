@@ -31,7 +31,6 @@ const Body = () => {
     },
   });
 
-  console.log(data);
   return (
     <div className="flex flex-wrap gap-4 mt-8">
       {data?.map((item) => (

@@ -1,6 +1,6 @@
 import { Slider } from "antd";
 import { useState } from "react";
-import { useSearchParams } from "../../../../../hooks/useSearchParams";
+import { useSearchParams } from "../../../../hooks/useSearchParams";
 
 const PricRange = () => {
   const { getParams, setParams } = useSearchParams();
@@ -10,7 +10,7 @@ const PricRange = () => {
 
   const [range, setRange] = useState([min, max]);
   return (
-    <div className="py-[14px] px-[18px] ">
+    <div className="py-[14px] px-[18px]">
       <h2 className="font-bold">Price Range</h2>
       <div className="flex flex-col gap-3 my-[7px] px-[12px]">
         <Slider min={0} max={1500} value={range} range onChange={setRange} />

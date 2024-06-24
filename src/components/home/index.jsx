@@ -1,4 +1,4 @@
-import SideNav from "./category/sidenav";
+import SideNav from "./sidenav";
 import Slider from "./carousel";
 import Category from "./category";
 

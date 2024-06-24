@@ -1,7 +1,7 @@
 import { Skeleton } from "antd";
-import { useSearchParams } from "../../../../../hooks/useSearchParams";
+import { useSearchParams } from "../../../../hooks/useSearchParams";
 import { useQuery } from "@tanstack/react-query";
-import { useAxios } from "../../../../../hooks/useAxios";
+import { useAxios } from "../../../../hooks/useAxios";
 
 const Categories = () => {
   const axios = useAxios();

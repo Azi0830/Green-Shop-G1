@@ -31,3 +31,5 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     </BrowserRouter>
   </AuthProvider>
 );
+
+//selectedni ichida savol bor
