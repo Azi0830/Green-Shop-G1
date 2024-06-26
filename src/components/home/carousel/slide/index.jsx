@@ -10,7 +10,7 @@ const Slide = ({
     <div className="flex">
       <div className="w-[60%] h-full ml-[43px]">
         <h5 className="mt-[68px] mb-[7px] ">{subTitle}</h5>
-        <h1 className="text-[70px] font-black leading-[70px] mb-[5px]">
+        <h1 className="text-[70px] font-black leading-[70px] mb-[5px] max-md:text-[50px] max-md:leading-[40px]">
           {title}
           <span className="text-[#46A358]">PLANET</span>
         </h1>
@@ -22,7 +22,7 @@ const Slide = ({
           {button_name}
         </button>
       </div>
-      <div className="w-[40%] h-full relative flex items-center justify-center">
+      <div className="w-[40%] h-full relative flex items-center justify-center max-md:hidden">
         <img src={bigImage} alt="flowers img " />
         <img
           className="absolute left-4 bottom-0"

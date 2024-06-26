@@ -2,19 +2,25 @@ import {
   LoginOutlined,
   ShoppingCartOutlined,
   SearchOutlined,
+  MenuOutlined,
 } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { setAuthModal } from "../../redux/generec-slices/modals";
+import {
+  setAuthModal,
+  setNavbarModal,
+} from "../../redux/generec-slices/modals";
 import AuhtModal from "./modal/auth";
+import Pages from "./pages";
+import { Button } from "antd";
+import NavbarPages from "./modal/pages-modal";
 
 const Navbar = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   return (
     <>
       <AuhtModal />
+      <NavbarPages />
       <div className="w-[80%] h-[80px] m-auto flex justify-between items-center border-b border-b-[#46A35880]">
         <div>
           <img
@@ -23,22 +29,8 @@ const Navbar = () => {
             alt="greenshop img logo"
           />
         </div>
-        <div className="flex gap-[50px]">
-          <h3
-            onClick={() => navigate("/")}
-            className="relative hover:font-bold hover:before:bg-[#46A358] before:w-full before:h-1 before:absolute before:left-0 before:bottom-[-28px] cursor-pointer"
-          >
-            Home
-          </h3>
-          <h3 className="relative hover:font-bold hover:before:bg-[#46A358] before:w-full before:h-1 before:absolute before:left-0 before:bottom-[-28px] cursor-pointer">
-            Shop
-          </h3>
-          <h3 className="relative hover:font-bold hover:before:bg-[#46A358] before:w-full before:h-1 before:absolute before:left-0 before:bottom-[-28px] cursor-pointer">
-            Plane Care
-          </h3>
-          <h3 className="relative hover:font-bold hover:before:bg-[#46A358] before:w-full before:h-1 before:absolute before:left-0 before:bottom-[-28px] cursor-pointer">
-            Blogs
-          </h3>
+        <div className="max-md:hidden">
+          <Pages />
         </div>
         <div className="flex gap-[30px]">
           <SearchOutlined className="text-2xl cursor-pointer" />
@@ -46,11 +38,17 @@ const Navbar = () => {
           <button
             onClick={() => dispatch(setAuthModal())}
             type="button"
-            className="bg-[#46A358] w-[100px] h-[35px] text-[#fff] flex gap-2 justify-center items-center rounded-md"
+            className="bg-[#46A358] w-[100px] h-[35px] text-[#fff] flex gap-2 justify-center items-center rounded-md max-md:hidden"
           >
             <LoginOutlined />
             Login
           </button>
+          <Button
+            onClick={() => dispatch(setNavbarModal())}
+            className="hidden max-md:flex justify-center items-center"
+          >
+            <MenuOutlined />
+          </Button>
         </div>
       </div>
     </>

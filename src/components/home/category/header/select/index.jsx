@@ -24,7 +24,6 @@ const SortSelect = () => {
     <div className="flex gap-2 items-center">
       <h3>Sort by:</h3>
       <Select
-        // labelInValue
         defaultValue={options?.filter((item) => item.value === sort)}
         onChange={(value) => setParams({ sort: value })}
         style={{
