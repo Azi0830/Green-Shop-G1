@@ -9,6 +9,9 @@ const Footer = () => {
         <Join />
         <Contact />
         <Media />
+        <div className="text-center cursor-pointer">
+          <h3>© 2021 GreenShop. All Rights Reserved.</h3>
+        </div>
       </div>
     </>
   );
