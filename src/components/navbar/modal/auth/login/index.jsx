@@ -1,17 +1,61 @@
-import { Form, Input } from "antd";
+import { Form, Input, notification } from "antd";
 import {
   FacebookOutlined,
   GoogleOutlined,
   ScanOutlined,
 } from "@ant-design/icons";
+import { useAuth } from "../../../../../configs/auth";
+import { useState } from "react";
+import { useAxios } from "../../../../../hooks/useAxios";
+import { useDispatch } from "react-redux";
+import { setAuthModal } from "../../../../../redux/generec-slices/modals";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const { singIn } = useAuth();
+  const axios = useAxios();
+  const [loading, setLoading] = useState(false);
+
+  const onFinish = async (e) => {
+    setLoading(true);
+    try {
+      const { data } = await axios({
+        method: "POST",
+        url: "/user/sign-in",
+        data: e,
+      });
+
+      const { token, user } = data.data;
+
+      singIn({
+        token,
+        user,
+      });
+
+      notification.error({
+        message: "Logged in..",
+        description: "You have logged in succer",
+      });
+
+      dispatch(setAuthModal());
+    } catch (error) {
+      notification.error({
+        message: "Something wern wrong",
+        description: error?.response?.data?.extraMessage,
+      });
+      console.log(error);
+    }
+
+    setLoading(false);
+  };
+
   return (
     <div className="w-[80%] m-auto">
       <h3 class="text-sm  mt-8 font-normal">
         Enter your username and password to login.
       </h3>
       <Form
+        onFinish={onFinish}
         name="basic"
         labelCol={{
           span: 8,
@@ -26,12 +70,10 @@ const Login = () => {
         initialValues={{
           remember: true,
         }}
-        // onFinish={onFinish}
-        // onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
         <Form.Item
-          name="username"
+          name="email"
           rules={[
             {
               required: true,
