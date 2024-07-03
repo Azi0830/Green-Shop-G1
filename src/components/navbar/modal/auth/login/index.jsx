@@ -3,18 +3,23 @@ import {
   FacebookOutlined,
   GoogleOutlined,
   ScanOutlined,
+  LoadingOutlined,
 } from "@ant-design/icons";
 import { useAuth } from "../../../../../configs/auth";
 import { useState } from "react";
 import { useAxios } from "../../../../../hooks/useAxios";
 import { useDispatch } from "react-redux";
 import { setAuthModal } from "../../../../../redux/generec-slices/modals";
+import useAuthUser from "react-auth-kit/hooks/useAuthUser";
 
 const Login = () => {
-  const dispatch = useDispatch();
   const { singIn } = useAuth();
   const axios = useAxios();
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const auth = useAuthUser();
+
+  console.log(auth, "user");
 
   const onFinish = async (e) => {
     setLoading(true);
@@ -98,9 +103,15 @@ const Login = () => {
         <h3 class="text-[#46A358] font-normal mt-[14px] cursor-pointer w-fit ml-auto">
           Forgot Password?
         </h3>
-        <button class="bg-[#46A358] mt-4 flex rounded-md w-full items-center justify-center gap-1 h-9 text-base text-white cursor-pointer">
-          Login
-        </button>
+        {loading ? (
+          <button class="bg-[#46A358] mt-4 flex rounded-md w-full items-center justify-center gap-1 h-9 text-base text-white cursor-pointer">
+            <LoadingOutlined />
+          </button>
+        ) : (
+          <button class="bg-[#46A358] mt-4 flex rounded-md w-full items-center justify-center gap-1 h-9 text-base text-white cursor-pointer">
+            Login
+          </button>
+        )}
       </Form>
 
       <button class="cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] w-full rounded-md mb-[15px] mt-4">

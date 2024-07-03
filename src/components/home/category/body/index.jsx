@@ -34,7 +34,7 @@ const Body = () => {
   return (
     <div className="flex flex-wrap gap-4 mt-8">
       {data?.map((item) => (
-        <Card key={item.id} {...item} />
+        <Card key={item._id} {...item} />
       ))}
     </div>
   );

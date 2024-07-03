@@ -6,12 +6,16 @@ import {
 } from "@ant-design/icons";
 
 const Register = () => {
+  const onFinish = (e) => {
+    console.log(e);
+  };
   return (
     <div className="w-[80%] m-auto">
       <h3 class="text-sm  mt-8 font-normal">
         Enter your email and password to register.
       </h3>
       <Form
+        onFinish={onFinish}
         name="basic"
         labelCol={{
           span: 8,
@@ -53,7 +57,7 @@ const Register = () => {
         </Form.Item>
 
         <Form.Item
-          name="mail"
+          name="email"
           rules={[
             {
               required: true,
