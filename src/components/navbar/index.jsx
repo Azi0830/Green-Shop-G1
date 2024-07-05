@@ -9,13 +9,17 @@ import {
   setAuthModal,
   setNavbarModal,
 } from "../../redux/generec-slices/modals";
-import AuhtModal from "./modal/auth";
 import Pages from "./pages";
 import { Button } from "antd";
+import AuhtModal from "./modal/auth";
 import NavbarPages from "./modal/pages-modal";
+import { useAuth } from "../../configs/auth";
 
 const Navbar = () => {
+  const { isAuth, getUser } = useAuth();
   const dispatch = useDispatch();
+
+  const { user } = getUser();
 
   return (
     <>
@@ -35,14 +39,23 @@ const Navbar = () => {
         <div className="flex gap-[30px]">
           <SearchOutlined className="text-2xl cursor-pointer" />
           <ShoppingCartOutlined className="text-2xl cursor-pointer" />
-          <button
-            onClick={() => dispatch(setAuthModal())}
-            type="button"
-            className="bg-[#46A358] w-[100px] h-[35px] text-[#fff] flex gap-2 justify-center items-center rounded-md max-md:hidden"
-          >
-            <LoginOutlined />
-            Login
-          </button>
+          {isAuth() ? (
+            <h3
+              type="button"
+              className="bg-[#46A358] w-[100px] h-[35px] text-[#fff] flex gap-2 justify-center items-center rounded-md"
+            >
+              {user.name}
+            </h3>
+          ) : (
+            <button
+              onClick={() => dispatch(setAuthModal())}
+              type="button"
+              className="bg-[#46A358] w-[100px] h-[35px] text-[#fff] flex gap-2 justify-center items-center rounded-md max-md:hidden"
+            >
+              <LoginOutlined />
+              Login
+            </button>
+          )}
           <Button
             onClick={() => dispatch(setNavbarModal())}
             className="hidden max-md:flex justify-center items-center"
@@ -56,3 +69,5 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+// 995321025Aa

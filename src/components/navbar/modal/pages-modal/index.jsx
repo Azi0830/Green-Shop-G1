@@ -20,6 +20,7 @@ const NavbarPages = () => {
     >
       <div className="p-[15px]">
         <Pages />
+
         <button
           onClick={() => dispatch(setAuthModal())}
           type="button"

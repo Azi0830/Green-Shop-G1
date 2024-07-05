@@ -2,13 +2,41 @@ import { Form, Input } from "antd";
 import {
   FacebookOutlined,
   GoogleOutlined,
-  ScanOutlined,
+  LoadingOutlined,
 } from "@ant-design/icons";
+import { useAxios } from "../../../../../hooks/useAxios";
+import { useAuth } from "../../../../../configs/auth";
+import { useDispatch } from "react-redux";
+import { setAuthModal } from "../../../../../redux/generec-slices/modals";
+import { useState } from "react";
 
 const Register = () => {
-  const onFinish = (e) => {
-    console.log(e);
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { singIn } = useAuth();
+  const axios = useAxios();
+
+  const onFinish = async (e) => {
+    if (loading) return;
+
+    setLoading(true);
+    try {
+      const { data } = await axios({
+        url: "/user/sign-up",
+        data: e,
+        method: "POST",
+      });
+
+      const { token, user } = data.data;
+
+      singIn({ token, user });
+      dispatch(setAuthModal());
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
   };
+
   return (
     <div className="w-[80%] m-auto">
       <h3 class="text-sm  mt-8 font-normal">
@@ -45,7 +73,7 @@ const Register = () => {
         </Form.Item>
 
         <Form.Item
-          name="username"
+          name="surname"
           rules={[
             {
               required: true,
@@ -69,7 +97,7 @@ const Register = () => {
         </Form.Item>
 
         <Form.Item
-          name="enter_password"
+          name="password"
           rules={[
             {
               required: true,
@@ -96,7 +124,7 @@ const Register = () => {
           Or register with
         </h3>
         <button class="bg-[#46A358] mt-4 flex rounded-md w-full items-center justify-center gap-1 h-9 text-base text-white cursor-pointer">
-          Login
+          {loading ? <LoadingOutlined /> : " Register"}
         </button>
       </Form>
 

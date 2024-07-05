@@ -11,6 +11,7 @@ import { useAxios } from "../../../../../hooks/useAxios";
 import { useDispatch } from "react-redux";
 import { setAuthModal } from "../../../../../redux/generec-slices/modals";
 import useAuthUser from "react-auth-kit/hooks/useAuthUser";
+import { signInWithGoogle } from "../../../../../configs/firebase";
 
 const Login = () => {
   const { singIn } = useAuth();
@@ -19,9 +20,9 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const auth = useAuthUser();
 
-  console.log(auth, "user");
-
   const onFinish = async (e) => {
+    if (loading) return;
+
     setLoading(true);
     try {
       const { data } = await axios({
@@ -37,12 +38,13 @@ const Login = () => {
         user,
       });
 
-      notification.error({
+      notification.success({
         message: "Logged in..",
         description: "You have logged in succer",
       });
 
       dispatch(setAuthModal());
+      window.location.reload();
     } catch (error) {
       notification.error({
         message: "Something wern wrong",
@@ -52,6 +54,38 @@ const Login = () => {
     }
 
     setLoading(false);
+  };
+
+  const singInGoogle = async () => {
+    try {
+      const { user } = await signInWithGoogle();
+
+      const { data } = await axios({
+        url: "/api/user/sign-in/google",
+        method: "POST",
+        data: user.email,
+      });
+
+      const { token, user: authUser } = data.data;
+
+      singIn({
+        token,
+        user: authUser,
+      });
+
+      notification.success({
+        message: "Logged in ",
+        description: "Tabriklaymiz hammasi muvoffaqiyatli utdi",
+      });
+
+      dispatch(setAuthModal());
+      window.location.reload();
+    } catch (error) {
+      notification.error({
+        message: "Balki yana bir urunib ko'rarsiz",
+        description: error?.response?.data?.extraMessage,
+      });
+    }
   };
 
   return (
@@ -118,7 +152,10 @@ const Login = () => {
         <FacebookOutlined className="ml-[15px]" />
         Login with Facebook
       </button>
-      <button class="cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] w-full rounded-md mb-[15px] mt-4">
+      <button
+        onClick={singInGoogle}
+        class="cursor-pointer flex items-center gap-2 border border-[#EAEAEA] h-[40px] w-full rounded-md mb-[15px] mt-4"
+      >
         <GoogleOutlined className="ml-[15px]" />
         Login with Google
       </button>
